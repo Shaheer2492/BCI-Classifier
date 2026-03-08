@@ -604,6 +604,18 @@
                 replacing a full BCI decoder, our goal was to test the feasibility using solely lightweight,
                 data-efficient pre-screening models that can be applied early in the pipeline.
             </p>
+            <div class="subsection-block">
+                <h4 style="color: var(--accent-cyan); font-weight: 400; letter-spacing: 1px; margin-bottom: 10px;">Scope
+                </h4>
+                <p>
+                    This study is limited to offline, retrospective analysis of the PhysioNet EEG Motor
+                    Movement/Imagery Dataset (109 subjects). We did <strong>not</strong> test on live streaming
+                    EEG, novel subject populations, cross-session or cross-dataset generalization, or non-MI BCI
+                    paradigms. The pipeline was designed for binary left-vs-right hand imagery only. Results
+                    should be interpreted as a proof-of-concept on a single public benchmark rather than a
+                    validated clinical screening tool.
+                </p>
+            </div>
             <p>
                 Our framework supports two operational views of "literacy". The first is a continuous prediction of
                 expected MI decoder accuracy (regression), and the second is a binary screening decision that separates
@@ -1312,6 +1324,15 @@
                 class (precision 0.619, recall 0.500), indicating the model is more reliable at identifying likely
                 low performers than confidently detecting high performers.
             </p>
+            <p>
+                <strong>Base-rate context:</strong> The dataset is imbalanced — 73 of 99 labeled subjects (73.7%)
+                fall in the LOW class. A naïve majority-class classifier would therefore achieve 73.7% accuracy by
+                always predicting LOW. Our model's 78.8% represents a modest but real improvement of ~5 percentage
+                points above this baseline, with the key practical benefit being its ability to correctly identify
+                13 of 26 high performers (50% recall) who would otherwise be missed entirely by a naïve rule.
+                The R² of 0.302 means roughly 70% of inter-subject variance in decoder accuracy remains
+                unexplained, consistent with the inherently noisy, multifactorial nature of BCI performance.
+            </p>
             <div class="figure-card" style="margin-top: 30px;">
                 <div class="figure-card-header">
                     <span class="figure-num">FIG 07</span>
@@ -1370,6 +1391,22 @@
                 These results suggest that both baseline rhythm structure and early-trial separability carry
                 complementary information about literacy.
             </p>
+
+            <h3 class="subsection-title">Limitations</h3>
+            <ul style="color: var(--text-secondary); line-height: 1.9; padding-left: 20px;">
+                <li><strong>Single dataset:</strong> All results derive from the PhysioNet EEG Motor
+                    Movement/Imagery Dataset. No external validation on independent cohorts or recording
+                    systems was performed.</li>
+                <li><strong>Class imbalance:</strong> 73 LOW vs. 26 HIGH subjects (73.7% base rate). The
+                    classifier's overall accuracy of 78.8% must be interpreted against this skewed prior;
+                    HIGH-class recall is only 50%.</li>
+                <li><strong>No cross-session or live testing:</strong> All analyses are offline and within-session.
+                    Real-world deployment would require validation on longitudinal data and live EEG streams.</li>
+                <li><strong>Potential information leakage:</strong> Feature selection was applied globally rather
+                    than strictly within each CV fold, which may mildly inflate reported metrics.</li>
+                <li><strong>Mu-only ground truth:</strong> The CSP-LDA decoder used only the mu band (8–13 Hz),
+                    excluding beta-band contributions that standard pipelines often include.</li>
+            </ul>
 
             <h3 class="subsection-title">Potential Improvements, Future Work</h3>
             <p>

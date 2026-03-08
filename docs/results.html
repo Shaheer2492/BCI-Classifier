@@ -357,10 +357,30 @@
                 individuals unlikely to achieve reliable control. However, sensitivity for high performers is low —
                 the classifier is best interpreted as a <strong>conservative filter</strong> rather than a definitive
                 "pass" decision.</p>
+            <p><strong>Base-rate context:</strong> The dataset is imbalanced — 73 of 99 labeled subjects (73.7%)
+                fall in the LOW class. A naïve majority-class classifier would achieve 73.7% by always predicting
+                LOW. Our 78.8% is a modest ~5 pp improvement, with the key benefit being correct identification of
+                13/26 high performers who would be missed by a naïve rule. R² = 0.302 means ~70% of inter-subject
+                variance remains unexplained, consistent with the noisy, multifactorial nature of BCI performance.</p>
             <p>Feature importance is dominated by <strong>CSP class separability</strong> and <strong>SMR
                     strength</strong>, with additional contributions from resting spectral summaries (TAR, PSE,
                 RPL<sub>α</sub>) and ERD/ERS measures. This confirms that both baseline rhythm structure and
                 early-trial separability carry complementary information about BCI literacy.</p>
+
+            <h3>Limitations</h3>
+            <ul>
+                <li><strong>Single dataset:</strong> All results from PhysioNet only — no external validation</li>
+                <li><strong>Class imbalance:</strong> 73 LOW vs 26 HIGH (73.7% base rate); HIGH recall is only 50%
+                </li>
+                <li><strong>No cross-session or live testing:</strong> Offline, within-session analyses only</li>
+                <li><strong>Feature selection leakage:</strong> Applied globally rather than within each CV fold</li>
+                <li><strong>Mu-only decoder:</strong> CSP-LDA used 8–13 Hz only, excluding beta contributions</li>
+            </ul>
+
+            <h3>Scope</h3>
+            <p>This study is a proof-of-concept on a single public benchmark. We did <strong>not</strong> test on
+                live EEG, novel populations, cross-session generalization, or non-MI paradigms. The pipeline is
+                designed for binary left-vs-right hand imagery only.</p>
 
             <hr class="section-divider">
 
