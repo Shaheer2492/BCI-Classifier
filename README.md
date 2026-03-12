@@ -6,6 +6,9 @@ A pre-screening pipeline that predicts a person's motor imagery BCI literacy fro
 
 🌐 **Website:** [shaheer2492.github.io/BCI-Classifier](https://shaheer2492.github.io/BCI-Classifier)
 
+🔗 **Original Partner Repository (Commit History):** [AL2024UCSD/EEG-Project](https://github.com/AL2024UCSD/EEG-Project)
+
+
 ---
 
 ## Overview
